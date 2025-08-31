@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMIL Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+        <main id="app-container">
+
+            <div id="start-page" class="page active">
+                
+                <div class="card">
+                    <h1>Welcome!</h1>
+                    <p>Please select your language:</p>
+                    
+                    <!-- <div class="media-container"> -->
+                        <div class="flags">
+                            <button class="lang-flag" data-lang="de"><img src="assets/flag-de.png" alt="Deutsch"></button>
+                            <button class="lang-flag" data-lang="en"><img src="assets/flag-en.png" alt="English"></button>
+                        </div>
+                        <img src="assets/EMO-AI-Hub_Maskottchen_Emil_Flaggen.svg" alt="Mascot" class="start-mascot">
+                    <!-- </div> -->
+                </div>
+                
+            </div>
+
+            <div id="tnc-modal" class="modal-overlay hidden">
+                
+                <div class="modal-content">
+                    <div class="agree-header-row">
+                        <h2 id="agree-header"></h2>
+                        <img src="assets/EMO-AI-Hub_Maskottchen_Emil_Winken.svg" alt="Mascot Waving" class="agree-mascot">
+                    </div>
+                    <div id="agree-content" class="agree-content"></div>
+                    <button id="agree-button">Agree and Start Chat</button>
+                </div>
+            </div>
+
+            <div id="api-overlay" class="modal-overlay">
+                <div class="api-key-section">
+                    <p>Enter your API key:</p>
+                    <input type="password" id="api-key-input" placeholder="Paste API key here">
+                    <button id="api-submit-button">Submit</button>
+                </div>
+            </div>
+
+            
+            <div id="chat-container" class="page hidden">
+                <button id="exit-button">Exit and Delete</button>
+                <img id="my_banner_logo" src="assets/banner_logo.png" alt="my_banner_logo_1">
+                <div class="chat-header">
+                    <img src="assets/banner.png" alt="Chat Banner" class="header-banner">
+                </div>
+                <div id="chat-window" class="chat-window">
+                    </div>
+                <div class="chat-input-area">
+                    <input type="text" id="message-input" placeholder="Type your message...">
+                    <button id="send-button">Send</button>
+                </div>
+            </div>
+
+        </main>
+        <footer class="app-footer">
+            <div class="footer-content">
+                <span>Powered by aiXbrain GmbH, Aachen</span>
+                <img src="assets/aixbrain_logo.jfif" alt="aiXbrain Logo" class="footer-logo">
+                <span>in Zusammenarbeit mit dem WZL der RWTH Aachen</span>
+                <img src="assets/wzl_logo.png" alt="WZL Logo" class="footer-logo">
+                <span>im Auftrag des VDW (Verein Deutscher Werkzeugmaschinenfabriken e.V.).</span>
+                <a href="https://vdw.de" target="_blank">Datenschutz: https://vdw.de</a>
+            </div>
+        </footer>
+
+    
+    <div id="error-overlay" class="modal-overlay hidden">
+        <div class="modal-content make_center">
+            <img src="assets/EMO-AI-Hub_Maskottchen_Emil_404.svg" alt="Error Mascot" class="error-mascot">
+            <h2>Sorry, the service is currently not working properly.</h2>
+            <p>Please contact a stand supervisor.</p>
+        </div>
+    </div>
+
+    
+
+    <div id="website-popup" class="modal-overlay hidden">
+        <div class="website-content">
+            <div class="website-header">
+                <span id="website-url"></span>
+                <button id="close-website-button">&times;</button>
+            </div>
+            <iframe id="website-iframe" src="about:blank" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    
+
+    <script src="script.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("./sw.js", { scope: "./" })
+            .then(() => console.log("SW registered"));
+        }
+      </script>
+</body>
+</html>
