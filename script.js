@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         en: {
             welcome: "Willkommen!",
-            select_language: "Bitte wählen Sie Ihre Sprache:<br>Please select your language:",
+            select_language: "Please select your language:",
             agree_header: "Hi, I’m EMIL, the AI-based EMO chatbot, and I look forward to chatting with you.",
             agree: "All set? Then let's go!",
             agree_content: `
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         de: {
             welcome: "Willkommen!",
-            select_language: "Bitte wählen Sie Ihre Sprache:<br>Please select your language:",
+            select_language: "Bitte wählen Sie Ihre Sprache:",
             agree_header: "Hallo, ich bin EMIL, der KI-basierte EMO Chatbot, und freue mich darauf, mit Dir zu chatten.",
             agree: "Alles klar? Dann los geht's!",
             agree_content: `
@@ -116,6 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let mascotAnimationInterval = null;
 
     // --- 3. UI FLOW & NAVIGATION ---
+
+    // autoscroll down
     window.visualViewport.addEventListener('resize', () => {
         window.scrollTo(0, document.body.scrollHeight);
     });
@@ -328,3 +330,4 @@ document.addEventListener('DOMContentLoaded', () => {
     showPage('start-page');
 
 });
+
