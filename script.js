@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. STATE MANAGEMENT ---
     const translations = {
         en: {
-            welcome: "Welcome!",
-            select_language: "Please select your language:",
+            welcome: "Willkommen!",
+            select_language: "Bitte wählen Sie Ihre Sprache:<br>Please select your language:",
             agree_header: "Hi, I’m EMIL, the AI-based EMO chatbot, and I look forward to chatting with you.",
             agree: "All set? Then let's go!",
             agree_content: `
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         de: {
             welcome: "Willkommen!",
-            select_language: "Bitte wählen Sie Ihre Sprache:",
+            select_language: "Bitte wählen Sie Ihre Sprache:<br>Please select your language:",
             agree_header: "Hallo, ich bin EMIL, der KI-basierte EMO Chatbot, und freue mich darauf, mit Dir zu chatten.",
             agree: "Alles klar? Dann los geht's!",
             agree_content: `
@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('message-input').placeholder = translations[userLanguage].placeholder;
         document.querySelector('#error-overlay .modal-content h2').textContent = translations[userLanguage].error_header;
         document.querySelector('#error-overlay .modal-content p').textContent = translations[userLanguage].error_content;
-        // ...update other elements as needed...
     }
 
 
@@ -117,6 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let mascotAnimationInterval = null;
 
     // --- 3. UI FLOW & NAVIGATION ---
+    window.visualViewport.addEventListener('resize', () => {
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    
     function showPage(pageId) {
         pages.forEach(page => {
             page.classList.toggle('active', page.id === pageId);
@@ -322,4 +326,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INITIALIZATION ---
     showPage('start-page');
+
 });
