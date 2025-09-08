@@ -18,6 +18,7 @@ const urlsToCache = [
   "./assets/EMO-AI-Hub_Maskottchen_Emil_Idee.svg",
   "./assets/EMO-AI-Hub_Maskottchen_Emil_Suche.svg",
   "./assets/EMO-AI-Hub_Maskottchen_Emil_404.svg",
+  "./assets/sigmoid_gradient.png",
   "./assets/page_background.png",
   "./assets/icon-192.png",
   "./assets/icon-512.png"

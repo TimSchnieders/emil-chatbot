@@ -68,7 +68,7 @@ body {
     max-height: 800px;
     
     /* Add padding to ensure text doesn't touch the sides of the card */
-    padding: 0 2rem;
+    padding: 1.5rem 2rem;
     text-align: center;
 }
 
@@ -206,9 +206,40 @@ body {
 /* --- Main Chat Container --- */
 #chat-container {background: white; border-radius: 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); overflow: hidden; position: relative; height: 95%; max-height: 95; width: 100%;}
 #exit-button { position: absolute; top: 15px; left: 15px; z-index: 10; background: rgba(255, 255, 255, 0.8); border: 1px solid #ccc; color: #333; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
+
+/* Delete this before final deployment */
+#report-button { position: absolute; top: 60px; left: 15px; z-index: 10; background: rgba(255, 255, 255, 0.8); border: 1px solid #ccc; color: #333; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.2s; height: auto;}
+#report-section {display: flex; flex-direction: column; width: 100%; align-items: center}
+.input-report {width:100%;}
+#report-input { flex-grow: 1;
+    min-height: 1.5em;          /* exactly one line high at start */
+    line-height: 1.5em;         /* match the text line */
+    height: auto;               /* allow JS to control height */
+    resize: none;               /* user can't drag resize */
+    overflow-y: hidden;         /* no scrollbars */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+    margin: 0;
+}
+#report-send-button {background: green}
+#report-cancel-button {background: red}
+
+
+textarea {
+    padding: 0px;
+    scroll-padding: 0px;
+}
+input {
+
+}
+/* Delete this before final deployment */
+
 #exit-button:hover { background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
 
-#my_banner_logo { position: absolute; top: 2vh; right: 3vh; z-index: 9; height: 10vh;}
+#my_banner_logo { position: absolute; top: 2vh; right: 3vh; z-index: 9; height: 9.5vh;}
 
 .chat-header {
     width: 100%;
@@ -221,22 +252,50 @@ body {
     align-items: flex-start;
     justify-content: flex-start;
 }
+
 .header-banner {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: right top;
-    display: block;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right top;
+
 }
-.chat-header::after {
+
+/* overlay gradient - exakt gleiche Fläche wie das alte ::after */
+.header-gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /* gleiche Höhe wie vorher (::after hatte height:50%) */
+  height: 30%;
+
+  /* Füllt horizontal, skaliert das Bild passend */
+  width: 100%;
+  object-fit: 100% 100%;          /* oder '100% 100%' wenn du verzerrung willst */
+  object-position: bottom center;
+
+  pointer-events: none;      /* verhindert Klick-Blockierung */
+  z-index: 2;                /* über dem banner, unter UI-Elementen */
+  background-color: transparent;
+}
+
+
+/* .chat-header::after {
     content: "";
     position: absolute;
     left: 0; right: 0; bottom: 0;
     height: 50%;
     pointer-events: none;
     background: linear-gradient(to top, white 0%, transparent 100%);
-}
-.chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; width: 95%;}
+} */
+
+
+
+
+.chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; width: 95%; padding-top: 5px;}
 
 /* Initial Welcome Message (inside chat window) */
 .initial-welcome { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #666; }
@@ -254,10 +313,14 @@ body {
 .user-message-wrapper { align-self: flex-end; }
 
 .message-wrapper { display: flex; align-items: flex-end; gap: 10px; max-width: 90%;}
-.message { padding: 10px 15px; border-radius: 18px; line-height: 1.4; flex-grow: 1; }
+.message { border-radius: 18px; line-height: 1.4; flex-grow: 1; }
 .avatar {height: 60px; flex-shrink: 0; }
-.user-message { background-color: var(--user-msg-bg); color: var(--text-light); border-bottom-right-radius: 4px; }
-.model-message { background-color: var(--model-msg-bg); color: var(--text-dark); border-bottom-left-radius: 4px; }
+.user-message { background-color: var(--user-msg-bg); color: var(--text-light); border-bottom-right-radius: 4px; padding: 10px 15px;}
+.model-message { background-color: var(--model-msg-bg); color: var(--text-dark); border-bottom-left-radius: 4px; padding: 0px 15px;}
+
+/* .input {
+    field-sizing: content; 
+} */
 
 /*
  * --- FIX FOR FULL-WIDTH INPUT ---
@@ -266,6 +329,7 @@ body {
  * take up all available horizontal space left over by the send button.
 */
 .chat-input-area {
+    /* flex-grow: 1; */
     width: 95%;
     max-width: 100%;
     border-radius: 0;
@@ -284,7 +348,33 @@ body {
     font-size: 16px;
     outline: none;
     margin: 0;
+
+    /* Delete if needed */
+    /* white-space: pre-wrap;
+    overflow-wrap: break-word;
+    overflow-y: hidden; */
 }
+
+/* #message-input {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+  outline: none;
+  margin: 0;
+
+  // macht Umbruch bei Feldende
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+
+  // Verhalten wie gewünscht
+  resize: none;        // User kann Größe nicht manuell ziehen 
+  line-height: 1.5em;  // Basis-Zeilenhöhe 
+  min-height: 1.5em;   // 1 Zeile 
+  max-height: calc(1.5em * 5); // max 5 Zeilen 
+  overflow-y: auto;    // zeigt Scrollbar, wenn mehr als 5 Zeilen 
+} */
 #message-input:focus { border-color: var(--primary-color); }
 #send-button {
     background-color: var(--primary-color);

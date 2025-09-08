@@ -17,8 +17,10 @@
             <div id="start-page" class="page active">
                 
                 <div class="card">
-                    <h1>Welcome!</h1>
+                    <h1>Willkommen!</h1>
+                    <p>Bitte wählen Sie Ihre Sprache:</p>
                     <p>Please select your language:</p>
+                    <!-- <p>Bitte wählen Sie Ihre Sprache:<br>Please select your language:</p> -->
                     
                     <!-- <div class="media-container"> -->
                         <div class="flags">
@@ -54,14 +56,21 @@
             
             <div id="chat-container" class="page hidden">
                 <button id="exit-button">Exit and Delete</button>
+                
+                <!-- Delete this before final deployment -->
+                <button id="report-button">[Testing Phase] Quick Report</button>
+                <!-- Delete this before final deployment -->
+
                 <img id="my_banner_logo" src="assets/banner_logo.png" alt="my_banner_logo_1">
                 <div class="chat-header">
                     <img src="assets/banner.png" alt="Chat Banner" class="header-banner">
+                    <img src="assets/sigmoid_gradient.png" alt="" aria-hidden="true" class="header-gradient">
                 </div>
                 <div id="chat-window" class="chat-window">
                     </div>
                 <div class="chat-input-area">
                     <input type="text" id="message-input" placeholder="Type your message...">
+                     <!-- <textarea id="message-input" placeholder="Type your message..." rows="1"></textarea> -->
                     <button id="send-button">Send</button>
                 </div>
             </div>
@@ -87,6 +96,21 @@
         </div>
     </div>
 
+    <!-- Delete this before final deployment -->
+    <div id="report-overlay" class="modal-overlay hidden report">
+        <div class="modal-content make_center">
+            <div id="report-section">
+                <p>Please describe the issue shortly. (Your chat histrory will be send anonymously)</p>
+                <div class="chat-input-area input-report">
+                    <button id="report-cancel-button">Cancel</button>
+                    <textarea id="report-input" placeholder="Type your report..."></textarea>
+                    <button id="report-send-button">Send</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- Delete this before final deployment -->
     
 
     <div id="website-popup" class="modal-overlay hidden">

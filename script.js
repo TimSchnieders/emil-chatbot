@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         apiOverlay.classList.add('hidden');
     }
 
-    
+    var sessionId = crypto.randomUUID().toString();
+    console.log(sessionId)
 
     // Page/View Elements
     const pages = document.querySelectorAll('.page');
@@ -47,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. STATE MANAGEMENT ---
     const translations = {
         en: {
-            welcome: "Willkommen!",
-            select_language: "Please select your language:",
+            // welcome: "Willkommen!",
+            // select_language: "Please select your language:",
             agree_header: "Hi, I’m EMIL, the AI-based EMO chatbot, and I look forward to chatting with you.",
             agree: "All set? Then let's go!",
             agree_content: `
@@ -71,10 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // ...add all other UI strings here...
         },
         de: {
-            welcome: "Willkommen!",
-            select_language: "Bitte wählen Sie Ihre Sprache:",
+            // welcome: "Willkommen!",
+            // select_language: "Bitte wählen Sie Ihre Sprache:",
             agree_header: "Hallo, ich bin EMIL, der KI-basierte EMO Chatbot, und freue mich darauf, mit Dir zu chatten.",
-            agree: "Alles klar? Dann los geht's!",
+            agree: "Alles klar? Dann geht's los!",
             agree_content: `
                 <p>Bevor es losgeht, hier noch ein paar wichtige Punkte:</p>
                 <ul>
@@ -99,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let userLanguage = 'en';
 
     function updateUIText() {
-        document.querySelector('h1').textContent = translations[userLanguage].welcome;
-        document.querySelector('#start-page p').textContent = translations[userLanguage].select_language;
+        // document.querySelector('h1').textContent = translations[userLanguage].welcome;
+        // document.querySelector('#start-page p').textContent = translations[userLanguage].select_language;
         document.getElementById('agree-header').textContent = translations[userLanguage].agree_header;
         document.getElementById('agree-button').textContent = translations[userLanguage].agree;
         document.getElementById('agree-content').innerHTML = translations[userLanguage].agree_content;
@@ -166,8 +167,93 @@ document.addEventListener('DOMContentLoaded', () => {
             messageHistory = [];
             chatWindow.innerHTML = '';
             showPage('start-page');
+            sessionId = crypto.randomUUID().toString();
         }
     });
+
+    // Delete this before final deployment
+    const reportButton = document.getElementById('report-button');
+    const reportOverlay = document.getElementById('report-overlay');
+    reportButton.addEventListener('click', () => {
+        reportOverlay.classList.remove('hidden');
+    });
+
+    const reportSendButton = document.getElementById('report-send-button');
+    reportSendButton.addEventListener('click', async () => {
+        const description = document.getElementById('report-input').value.trim();
+        reportOverlay.classList.add('hidden');
+        if (!description) return;
+
+        try {
+            const res = await fetch('https://emo-chatbot.aixbrain.de/report/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': apiKey,
+                },
+                body: JSON.stringify({
+                    description: description,
+                    session_id: sessionId
+                })
+            });
+            console.log(res)
+            if (!res.ok) {
+                console.error('Report failed', res.status);
+                alert('Report konnte nicht gesendet werden.');
+            } else {
+                alert('Danke! Dein Report wurde gesendet.');
+            }
+        } catch (err) {
+            console.error('Report error:', err);
+            alert('Fehler beim Senden des Reports.');
+        }
+        description.value = '';
+    });
+
+    const reportCancelButton = document.getElementById('report-cancel-button');
+    reportCancelButton.addEventListener('click', () => {
+        reportOverlay.classList.add('hidden');
+    });
+
+    const reportInput = document.getElementById("report-input");
+
+    if (reportInput) {
+        const resize = () => {
+            reportInput.style.height = "auto";               // reset
+            reportInput.style.height = reportInput.scrollHeight + "px"; // grow/shrink
+        };
+
+        reportInput.addEventListener("input", resize);
+
+        // initialize on load
+        resize();
+    }
+
+    // messageInput.addEventListener('input', () => {
+    //     messageInput.style.height = 'auto';  // reset the height
+    //     messageInput.style.height = messageInput.scrollHeight + 'px';  // set to content height
+    // });
+    // Delete this before final deployment
+
+
+
+
+    
+
+    if (messageInput) {
+        const resizeInput = () => {
+            messageInput.style.height = "auto"; // Reset
+            messageInput.style.height = Math.min(
+            messageInput.scrollHeight,
+            parseInt(getComputedStyle(messageInput).lineHeight) * 5
+            ) + "px";
+        };
+
+        messageInput.addEventListener("input", resizeInput);
+
+        // Initial setzen
+        resizeInput();
+        }
     
     closeWebsiteButton.addEventListener('click', () => {
         websiteIframe.src = 'about:blank'; // Stop content from loading/playing
@@ -204,6 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayMessage('user', prompt);
         messageHistory.push({ role: 'user', content: prompt, timestamp: new Date().toISOString() });
         
+        
         messageInput.value = '';
         messageInput.disabled = true;
         sendButton.disabled = true;
@@ -228,8 +315,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 5. API COMMUNICATION ---
     async function callChatApi(prompt, messageElement, avatarElement) {
         // ... (This function remains unchanged from the previous version)
-        const requestBody = { user_info: { id: "user123", language_tag: userLanguage }, chat_request: { prompt: prompt, messages: messageHistory } };
-        const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey }, body: JSON.stringify(requestBody) });
+
+        ShortenedMessageHistory = messageHistory.slice(0, -1); // dont include the last promt
+        console.log(ShortenedMessageHistory)
+        // const requestBody = { user_info: { id: "user123", language_tag: userLanguage }, chat_request: { prompt: prompt, messages: messageHistory } };
+        const requestBody = { user_info: { id: "user123", language_tag: userLanguage }, chat_request: { prompt: prompt, messages: ShortenedMessageHistory } };
+        
+        // const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey, }, body: JSON.stringify(requestBody) });
+        
+        // // Delete this before final deployment
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-API-Key': apiKey,
+                'X-Session-ID': sessionId,
+            },
+            body: JSON.stringify(requestBody)
+        });
+        // // Delete this before final deployment
+
+        // messageHistory.push({ role: 'user', content: prompt, timestamp: new Date().toISOString() });
+
+        // console.log(response)
+        // console.log(messageHistory)
+        
         if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
@@ -298,33 +408,73 @@ document.addEventListener('DOMContentLoaded', () => {
     function stopMascotAnimation(avatarElement) { /* Unchanged */ clearInterval(mascotAnimationInterval); mascotAnimationInterval = null; avatarElement.src = `assets/EMO-AI-Hub_Maskottchen_Emil_Idee.svg`; }
     function showErrorPage() { errorOverlay.classList.remove('hidden'); }
 
-    // Link Parsing and Iframe Popup
+    // // Link Parsing and Iframe Popup
+    // function parseAndHandleLink(text) {
+    //     const regex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/;
+    //     const match = text.match(regex);
+    //     if (match) {
+    //         const linkText = match[1];
+    //         const url = match[2];
+    //         // // Replace markdown link with a simple, non-clickable text or a subtle indicator
+    //         // const html = text.replace(regex, `${linkText} (link opened in popup)`);
+    //         const html = text;
+    //         return { html, link: url };
+    //         return { html, link: url };
+    //     }
+    //     return { html: text, link: null };
+    // }
+
     function parseAndHandleLink(text) {
         const regex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/;
         const match = text.match(regex);
+
         if (match) {
             const linkText = match[1];
             const url = match[2];
-            // // Replace markdown link with a simple, non-clickable text or a subtle indicator
-            // const html = text.replace(regex, `${linkText} (link opened in popup)`);
-            const html = text;
-            return { html, link: url };
-            return { html, link: url };
+
+            // Nur Hallenplan-Links automatisch öffnen
+            const autoOpen = url.startsWith("https://visitors.emo-hannover.de/de/hallenplan/interaktive-karte") ||
+                            url.startsWith("https://visitors.emo-hannover.de/en/hall-plan/interactive-map");
+
+            // Alle Links klickbar machen
+            const html = text.replace(regex, `<a href="${url}" target="_blank">${linkText}</a>`);
+
+            return { html, link: autoOpen ? url : null };
         }
+
         return { html: text, link: null };
     }
 
     function showWebsiteInPopup(url) {
-        // websiteUrlSpan.textContent = url;
-        // websiteIframe.src = url;
-        websiteUrlSpan.textContent = "https://de.wikipedia.org/wiki/Tiger";
-        websiteIframe.src = "https://de.wikipedia.org/wiki/Tiger";
-        
-        websitePopup.classList.remove('hidden');
+        websiteUrlSpan.textContent = url;
+        websiteIframe.src = url;
+        websitePopup.classList.remove('hidden'); // just the overlay for the popup
+
+        // websiteUrlSpan.textContent = "https://de.wikipedia.org/wiki/Tiger";
+        // websiteIframe.src = "https://de.wikipedia.org/wiki/Tiger";
+
+        // window.open(url, '_blank').focus();
     }
 
     // --- 7. UTILITY FUNCTION: DISPLAY MESSAGE IN UI ---
-    function displayMessage(role, content) { /* Unchanged */ const wrapper = document.createElement('div'); wrapper.classList.add('message-wrapper', `${role}-message-wrapper`); const messageElement = document.createElement('div'); messageElement.classList.add('message', `${role}-message`); messageElement.innerHTML = content; let avatarElement = null; if (role === 'model') { const avatar = document.createElement('img'); avatar.classList.add('avatar'); avatar.src = 'assets/mascot_still.png'; avatarElement = avatar; wrapper.appendChild(avatar); wrapper.appendChild(messageElement); } else { wrapper.appendChild(messageElement); } chatWindow.appendChild(wrapper); chatWindow.scrollTop = chatWindow.scrollHeight; return { messageElement, avatarElement }; }
+    function displayMessage(role, content) {
+        /* Unchanged */ const wrapper = document.createElement('div'); 
+        wrapper.classList.add('message-wrapper', `${role}-message-wrapper`); 
+        const messageElement = document.createElement('div'); 
+        messageElement.classList.add('message', `${role}-message`); 
+        messageElement.innerHTML = content; let avatarElement = null; 
+        if (role === 'model') { 
+            const avatar = document.createElement('img'); 
+            avatar.classList.add('avatar'); 
+            avatar.src = 'assets/mascot_still.png'; 
+            avatarElement = avatar; wrapper.appendChild(avatar); 
+            wrapper.appendChild(messageElement); 
+        } else { 
+            wrapper.appendChild(messageElement); 
+        } 
+        chatWindow.appendChild(wrapper); 
+        chatWindow.scrollTop = chatWindow.scrollHeight; 
+        return { messageElement, avatarElement }; }
 
     // --- INITIALIZATION ---
     showPage('start-page');
