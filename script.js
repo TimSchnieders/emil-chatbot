@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // initialize on load
         resize();
     }
-
+    
     // messageInput.addEventListener('input', () => {
     //     messageInput.style.height = 'auto';  // reset the height
     //     messageInput.style.height = messageInput.scrollHeight + 'px';  // set to content height
@@ -244,19 +244,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     if (messageInput) {
-        const resizeInput = () => {
-            messageInput.style.height = "auto"; // Reset
-            messageInput.style.height = Math.min(
-            messageInput.scrollHeight,
-            parseInt(getComputedStyle(messageInput).lineHeight) * 5
-            ) + "px";
+        const resize = () => {
+            messageInput.style.height = "auto";               // reset
+            // messageInput.style.height = messageInput.scrollHeight + "px" - 1em; // grow/shrink
+            let fontSize = parseFloat(getComputedStyle(messageInput).fontSize); // in px
+            messageInput.style.height = (messageInput.scrollHeight - fontSize) + "px";
+            messageInput.scrollTop = messageInput.scrollHeight;       //always be scolled down
         };
 
-        messageInput.addEventListener("input", resizeInput);
+        messageInput.addEventListener("input", resize);
 
-        // Initial setzen
-        resizeInput();
-        }
+        // initialize on load
+        resize();
+    }
     
     closeWebsiteButton.addEventListener('click', () => {
         websiteIframe.src = 'about:blank'; // Stop content from loading/playing
