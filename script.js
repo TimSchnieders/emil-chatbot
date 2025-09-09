@@ -220,7 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (reportInput) {
         const resize = () => {
             reportInput.style.height = "auto";               // reset
-            reportInput.style.height = reportInput.scrollHeight + "px"; // grow/shrink
+            // reportInput.style.height = reportInput.scrollHeight + "px" - 1em; // grow/shrink
+            let fontSize = parseFloat(getComputedStyle(reportInput).fontSize); // in px
+            reportInput.style.height = (reportInput.scrollHeight - fontSize) + "px";
+            reportInput.scrollTop = reportInput.scrollHeight;       //always be scolled down
         };
 
         reportInput.addEventListener("input", resize);

@@ -210,13 +210,17 @@ body {
 /* Delete this before final deployment */
 #report-button { position: absolute; top: 60px; left: 15px; z-index: 10; background: rgba(255, 255, 255, 0.8); border: 1px solid #ccc; color: #333; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.2s; height: auto;}
 #report-section {display: flex; flex-direction: column; width: 100%; align-items: center}
-.input-report {width:100%;}
+.input-report {width:100%; display: flex;
+  align-items: flex-end; /* align items along the bottom */
+  gap: 8px; /* spacing between elements */
+  width: 100%; /* optional: parent width */}
 #report-input { flex-grow: 1;
-    min-height: 1.5em;          /* exactly one line high at start */
+    min-height: 0em;          /* exactly one line high at start */
+    max-height: 9.5em;
     line-height: 1.5em;         /* match the text line */
     height: auto;               /* allow JS to control height */
     resize: none;               /* user can't drag resize */
-    overflow-y: hidden;         /* no scrollbars */
+    /* overflow-y: hidden;          */
     border: 1px solid #ccc;
     border-radius: 20px;
     padding: 10px 15px;
@@ -224,17 +228,33 @@ body {
     outline: none;
     margin: 0;
 }
-#report-send-button {background: green}
-#report-cancel-button {background: red}
+#report-send-button {background: green; flex: 0 0 auto; /* don’t grow, don’t shrink */
+}
+#report-cancel-button {background: red; flex: 0 0 auto; /* don’t grow, don’t shrink */
+}
+
+
+
 
 
 textarea {
+  font: inherit;
+}
+
+/* textarea {
+  font: inherit;            /* match input font *
+  line-height: inherit;     /* optional, for vertical alignment *
+  padding: 0;               /* remove default padding *
+  border: 1px solid #ccc;   /* optional, match input *
+  min-height: 0;            /* override default min-height *
+  height: auto;             /* let JS grow it if needed *
+  resize: none;             /* optional, prevent manual resizing *
+} */
+
+/* textarea {
     padding: 0px;
     scroll-padding: 0px;
-}
-input {
-
-}
+} */
 /* Delete this before final deployment */
 
 #exit-button:hover { background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
