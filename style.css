@@ -228,8 +228,8 @@ body {
     outline: none;
     margin: 0;
 }
-#report-send-button {background: green; flex: 0 0 auto; }
-#report-cancel-button {background: red; flex: 0 0 auto; }
+#report-send-button {background: green; flex: 0 0 auto; height: 2.8em;}
+#report-cancel-button {background: red; flex: 0 0 auto; height: 2.8em;}
 
 
 
