@@ -50,6 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // window.addEventListener('orientationchange', setAppHeight);
     // setAppHeight();
 
+    const resizeOps = () => {
+        document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + "px");
+    };
+
+    resizeOps();
+    window.addEventListener("resize", resizeOps);
+
 
 
     // --- 2. STATE MANAGEMENT ---

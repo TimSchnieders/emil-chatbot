@@ -25,12 +25,10 @@ body {
     align-items: center; /* NEU: Zentriert die Kindelemente (app-container & footer) horizontal */
     
 }
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-}
-html {
-  height: -webkit-fill-available;
+
+html, body {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 #app-container {
