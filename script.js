@@ -41,14 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const apiSubmitButton = document.getElementById('api-submit-button');
 
-    function setAppHeight() {
-        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
+    // function setAppHeight() {
+    //     const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    //     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    // }
 
-    window.addEventListener('resize', setAppHeight);
-    window.addEventListener('orientationchange', setAppHeight);
-    setAppHeight();
+    // window.addEventListener('resize', setAppHeight);
+    // window.addEventListener('orientationchange', setAppHeight);
+    // setAppHeight();
 
 
 
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 4. CHAT FUNCTIONALITY ---
     sendButton.addEventListener('click', handleSendMessage);
     messageInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' && !sendButton.disabled) {
+        if (event.key === 'Enter' && !sendButton.disabled && !event.shiftKey) {
             handleSendMessage();
         }
     });
@@ -499,8 +499,12 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Unchanged */ const wrapper = document.createElement('div'); 
         wrapper.classList.add('message-wrapper', `${role}-message-wrapper`); 
         const messageElement = document.createElement('div'); 
-        messageElement.classList.add('message', `${role}-message`); 
-        messageElement.innerHTML = content; let avatarElement = null; 
+        messageElement.classList.add('message', `${role}-message`);
+        if (role === 'user') {
+            content = content.replace(/\n/g, '<br>')
+        }
+        messageElement.innerHTML = content;
+        let avatarElement = null; 
         if (role === 'model') { 
             const avatar = document.createElement('img'); 
             avatar.classList.add('avatar'); 
