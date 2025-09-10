@@ -41,7 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const apiSubmitButton = document.getElementById('api-submit-button');
 
+    function setAppHeight() {
+        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
 
+    window.addEventListener('resize', setAppHeight);
+    window.addEventListener('orientationchange', setAppHeight);
+    setAppHeight();
 
 
 
