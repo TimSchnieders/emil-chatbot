@@ -50,12 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // window.addEventListener('orientationchange', setAppHeight);
     // setAppHeight();
 
-    const resizeOps = () => {
-        document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + "px");
-    };
-
-    resizeOps();
-    window.addEventListener("resize", resizeOps);
+    const documentHeight = () => {
+        const doc = document.documentElement
+            doc.style.setProperty('--doc-height', `${window.innerHeight}px`)
+        }
+    window.addEventListener('resize', documentHeight)
+    documentHeight()
 
 
 
