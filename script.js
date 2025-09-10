@@ -248,11 +248,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
     // Delete this before final deployment
     const myfooter = document.getElementById('this-footer');
-    // if ("ontouchstart" in window && window.innerWidth < 1024) {
-    //     myfooter.classList.add('hidden');
-    // }
+    if ("ontouchstart" in window && window.innerWidth < 1024) {
+        myfooter.classList.remove('active_footer');
+        myfooter.classList.add('hidden_footer');
+    }
     // myfooter.display = "none";
-    myfooter.classList.add('hidden');
+    // myfooter.classList.remove('active_footer');
+    // myfooter.classList.add('hidden_footer');
     
 
     if (messageInput) {

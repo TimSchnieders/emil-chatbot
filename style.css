@@ -429,17 +429,20 @@ textarea {
 #send-button:disabled { background-color: #ccc; cursor: not-allowed; }
 
 /* --- Footer Styling --- */
+.hidden_footer { display: none; }
+.active_footer { display: flex; }
+
 .app-footer {
     width: 100%;
     /* background-color: #f8f9fa; */
-    background-color: #ec0955;
+    background-color: #09ec55;
     border-top: 1px solid #ddd;
     padding: 10px 20px;
     box-sizing: border-box;
     text-align: center;
     font-size: 12px;
     color: #666;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
 }
