@@ -5,6 +5,7 @@
     --model-msg-bg: #f1f1f1;
     --text-light: #ffffff;
     --text-dark: #333333;
+    color-scheme: light; /* no dark mode */
 }
 
 html, body {
