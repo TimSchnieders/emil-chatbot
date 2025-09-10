@@ -248,10 +248,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
     // Delete this before final deployment
     const myfooter = document.getElementById('this-footer');
-    if ("ontouchstart" in window ) {
-        myfooter.display = "none";
-    }
-
+    // if ("ontouchstart" in window ) {
+    //     myfooter.display = "none";
+    // }
+    myfooter.display = "none";
 
     
 
