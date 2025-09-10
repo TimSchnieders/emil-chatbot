@@ -247,8 +247,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //     messageInput.style.height = messageInput.scrollHeight + 'px';  // set to content height
     // });
     // Delete this before final deployment
-
-
+    const myfooter = document.getElementById('this-footer');
+    if ("ontouchstart" in window && window.innerWidth < 1024) {
+        myfooter.style.display = "none";
+    }
 
 
     
