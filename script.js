@@ -123,12 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, document.body.scrollHeight);
     });
 
+    const myfooter = document.getElementById('this-footer');
     
     function showPage(pageId) {
         pages.forEach(page => {
             page.classList.toggle('active', page.id === pageId);
             page.classList.toggle('hidden', page.id !== pageId);
         });
+        
+        if ("ontouchstart" in window && window.innerWidth < 1024 && chatContainer.classList.contains('active')) {
+            myfooter.classList.remove('active_footer');
+            myfooter.classList.add('hidden_footer');
+    }
     }
 
     langFlags.forEach(flag => {
@@ -247,11 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //     messageInput.style.height = messageInput.scrollHeight + 'px';  // set to content height
     // });
     // Delete this before final deployment
-    const myfooter = document.getElementById('this-footer');
-    if ("ontouchstart" in window && window.innerWidth < 1024 && chatContainer.classList.contains('active')) {
-        myfooter.classList.remove('active_footer');
-        myfooter.classList.add('hidden_footer');
-    }
+    
     // myfooter.display = "none";
     // myfooter.classList.remove('active_footer');
     // myfooter.classList.add('hidden_footer');
