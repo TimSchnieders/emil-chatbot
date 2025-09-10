@@ -131,9 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
             page.classList.toggle('hidden', page.id !== pageId);
         });
         console.log(chatContainer.classList.contains('active'))
-        console.log(chatContainer.classList.contains('active'))
-        console.log(chatContainer.classList.contains('active'))
-        if (window.hasOwnProperty('ontouchstart') && window.innerWidth < 300 && chatContainer.classList.contains('active')) {
+
+        console.log(window.innerWidth)
+        if (window.hasOwnProperty('ontouchstart') && chatContainer.classList.contains('active')) {
             myfooter.classList.remove('active_footer');
             myfooter.classList.add('hidden_footer');
     }
