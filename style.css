@@ -9,7 +9,7 @@
 }
 
 html, body {
-    height: 100vh;
+    height: 100dvh;
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #e9ebee;
@@ -21,12 +21,12 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100dvh;
     align-items: center; /* NEU: Zentriert die Kindelemente (app-container & footer) horizontal */
     
 }
 
-:root {
+/* :root {
  --doc-height: 100%;
 }
 
@@ -34,9 +34,9 @@ html,
 body {
  padding: 0;
  margin: 0;
- height: 100vh; /* fallback for Js load */
+ height: 100vh; 
  height: var(--doc-height);
-}
+} */
 
 #app-container {
     width: 100%;
