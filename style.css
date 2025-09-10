@@ -431,7 +431,8 @@ textarea {
 /* --- Footer Styling --- */
 .app-footer {
     width: 100%;
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
+    background-color: #ec0955;
     border-top: 1px solid #ddd;
     padding: 10px 20px;
     box-sizing: border-box;
