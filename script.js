@@ -124,14 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const myfooter = document.getElementById('this-footer');
-    
+
     function showPage(pageId) {
         pages.forEach(page => {
             page.classList.toggle('active', page.id === pageId);
             page.classList.toggle('hidden', page.id !== pageId);
         });
-        
-        if ("ontouchstart" in window && window.innerWidth < 1024 && chatContainer.classList.contains('active')) {
+        console.log(chatContainer.classList.contains('active'))
+        console.log(chatContainer.classList.contains('active'))
+        console.log(chatContainer.classList.contains('active'))
+        if ( window.innerWidth < 1024 && chatContainer.classList.contains('active')) {
             myfooter.classList.remove('active_footer');
             myfooter.classList.add('hidden_footer');
     }
