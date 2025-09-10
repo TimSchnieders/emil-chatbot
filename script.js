@@ -171,11 +171,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const reportInput = document.getElementById("report-input");
+
     // Delete this before final deployment
     const reportButton = document.getElementById('report-button');
     const reportOverlay = document.getElementById('report-overlay');
     reportButton.addEventListener('click', () => {
         reportOverlay.classList.remove('hidden');
+        reportInput.focus();
     });
 
     const reportSendButton = document.getElementById('report-send-button');
@@ -210,12 +213,19 @@ document.addEventListener('DOMContentLoaded', () => {
         description.value = '';
     });
 
+    // reportInput.addEventListener('keydown', (event) => {
+    //     if (event.key === 'Enter') {
+    //         // handleSendReport();
+    //     }
+    // });
+
+
     const reportCancelButton = document.getElementById('report-cancel-button');
     reportCancelButton.addEventListener('click', () => {
         reportOverlay.classList.add('hidden');
     });
 
-    const reportInput = document.getElementById("report-input");
+    
 
     if (reportInput) {
         const resize = () => {
@@ -250,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let fontSize = parseFloat(getComputedStyle(messageInput).fontSize); // in px
             messageInput.style.height = (messageInput.scrollHeight - fontSize) + "px";
             messageInput.scrollTop = messageInput.scrollHeight;       //always be scolled down
+            chatWindow.scrollTop = chatWindow.scrollHeight;       //always be scolled down
         };
 
         messageInput.addEventListener("input", resize);
