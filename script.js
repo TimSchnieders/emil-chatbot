@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(chatContainer.classList.contains('active'))
         console.log(chatContainer.classList.contains('active'))
         console.log(chatContainer.classList.contains('active'))
-        if ( window.innerWidth < 1024 && chatContainer.classList.contains('active')) {
+        if (window.hasOwnProperty('ontouchstart') && window.innerWidth < 1024 && chatContainer.classList.contains('active')) {
             myfooter.classList.remove('active_footer');
             myfooter.classList.add('hidden_footer');
     }
