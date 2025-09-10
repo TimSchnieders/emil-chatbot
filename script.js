@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chatWindow.innerHTML = '';
             showPage('start-page');
             sessionId = crypto.randomUUID().toString();
+            messageInput.value = '';
         }
     });
 
