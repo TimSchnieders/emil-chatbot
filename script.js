@@ -460,14 +460,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWebsiteInPopup(url) {
-        websiteUrlSpan.textContent = url;
-        websiteIframe.src = url;
-        websitePopup.classList.remove('hidden'); // just the overlay for the popup
+        // websiteUrlSpan.textContent = url;
+        // websiteIframe.src = url;
+        // websitePopup.classList.remove('hidden'); // just the overlay for the popup
 
         // websiteUrlSpan.textContent = "https://de.wikipedia.org/wiki/Tiger";
         // websiteIframe.src = "https://de.wikipedia.org/wiki/Tiger";
 
-        // window.open(url, '_blank').focus();
+        window.open(url, '_blank').focus();
     }
 
     // --- 7. UTILITY FUNCTION: DISPLAY MESSAGE IN UI ---
