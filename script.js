@@ -260,9 +260,18 @@ document.addEventListener('DOMContentLoaded', () => {
             messageInput.style.height = "auto";               // reset
             // messageInput.style.height = messageInput.scrollHeight + "px" - 1em; // grow/shrink
             let fontSize = parseFloat(getComputedStyle(messageInput).fontSize); // in px
-            messageInput.style.height = (messageInput.scrollHeight - fontSize) + "px";
-            messageInput.scrollTop = messageInput.scrollHeight;       //always be scolled down
-            chatWindow.scrollTop = chatWindow.scrollHeight;       //always be scolled down
+            // messageInput.style.height = (messageInput.scrollHeight - fontSize) + "px";
+            // messageInput.scrollTop = messageInput.scrollHeight;       //always be scolled down
+            // chatWindow.scrollTop = chatWindow.scrollHeight;       //always be scolled down
+
+            const newHeight = messageInput.scrollHeight - fontSize;
+
+            if (messageInput.style.height !== `${newHeight}px`) {
+                messageInput.style.height = `${newHeight}px`;
+                messageInput.scrollTop = messageInput.scrollHeight;
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+            
         };
 
         messageInput.addEventListener("input", resize);
