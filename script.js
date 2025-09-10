@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
     // Delete this before final deployment
     const myfooter = document.getElementById('this-footer');
-    if ("ontouchstart" in window && window.innerWidth < 1024) {
+    if ("ontouchstart" in window && window.innerWidth < 1024 && chatContainer.classList.contains('active')) {
         myfooter.classList.remove('active_footer');
         myfooter.classList.add('hidden_footer');
     }
