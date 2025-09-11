@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // window.addEventListener('resize', documentHeight)
     // documentHeight()
 
+    
 
 
     // --- 2. STATE MANAGEMENT ---
@@ -200,6 +201,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const reportButton = document.getElementById('report-button');
     const reportOverlay = document.getElementById('report-overlay');
     reportButton.addEventListener('click', () => {
+        reportOverlay.classList.remove('hidden');
+        reportInput.focus();
+    });
+
+    const reportButton2 = document.getElementById('report-button2');
+    reportButton2.addEventListener('click', () => {
         reportOverlay.classList.remove('hidden');
         reportInput.focus();
     });
